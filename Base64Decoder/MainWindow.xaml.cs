@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Base64Decoder
 {
@@ -39,13 +28,19 @@ namespace Base64Decoder
 
         private void Decode_Click(object sender, RoutedEventArgs e)
         {
-            if (sender == decodeButton)
+            string results = "";
+
+            if(sender == decodeButton)
             {
-                Decoder(decodedTextBox.Text);
-            } else if (sender == decodeButtonX2)
-            {
-                Decoder(Decoder(decodedTextBox.Text));
+                results = Decoder(encodedTextBox.Text);
             }
+            else if (sender == decodeButtonX2)
+            {
+                results = Decoder(Decoder(encodedTextBox.Text));
+            }
+            
+
+            decodedTextBox.Text = results;
         }
 
         private void CopyDecoded_Click(object sender, RoutedEventArgs e)
@@ -60,16 +55,19 @@ namespace Base64Decoder
 
         private void Encode_Click(object sender, RoutedEventArgs e)
         {
-           
 
+            string results = "";
             if (sender == encodeButton)
             {
-               Encoder(decodedTextBox.Text);
+               results = Encoder(decodedTextBox.Text);
 
             } else if (sender == encodeButtonX2)
             {
-               Encoder(Encoder(decodedTextBox.Text));
+               string temp = (Encoder(decodedTextBox.Text));
+               results = Encoder(temp);
             }
+
+            encodedTextBox.Text = results.ToString();
            
         }
 
@@ -94,9 +92,9 @@ namespace Base64Decoder
             {
                 try
                 {
-                    var result = System.Text.Encoding.UTF8.GetBytes(str);
-                    encodedTextBox.Text = System.Convert.ToBase64String(result);
-                    return result.ToString();
+                    var results = System.Text.Encoding.UTF8.GetBytes(str);
+                    return System.Convert.ToBase64String(results);
+
                 }
                 catch (Exception e)
                 {
@@ -113,9 +111,8 @@ namespace Base64Decoder
             {
                 try
                 {
-                    var result = System.Convert.FromBase64String(encodedTextBox.Text);
-                    decodedTextBox.Text = System.Text.Encoding.UTF8.GetString(result);
-                    return result.ToString();
+                    var base64EncodedBytes = System.Convert.FromBase64String(str);
+                    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
                 }
                 catch (Exception e)
                 {
@@ -125,7 +122,5 @@ namespace Base64Decoder
 
             return "";
         }
-
-        
     }
 }
