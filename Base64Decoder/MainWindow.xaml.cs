@@ -75,7 +75,7 @@ namespace Base64Decoder
         {
             try
             {
-                Process.Start(decodedTextBox.Text); // opens a web page, value must be a hyperlink. 
+                Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", decodedTextBox.Text); // opens a web page, value must be a hyperlink. 
             }
             catch { }
         }
