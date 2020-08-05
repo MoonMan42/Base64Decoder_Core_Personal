@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
 using System.Windows;
 
 namespace Base64Decoder
@@ -22,7 +21,7 @@ namespace Base64Decoder
 
         private void PasteEncoded_Click(object sender, RoutedEventArgs e)
         {
-            
+
             encodedTextBox.Text = Clipboard.GetText();
         }
 
@@ -30,7 +29,7 @@ namespace Base64Decoder
         {
             string results = "";
 
-            if(sender == decodeButton)
+            if (sender == decodeButton)
             {
                 results = Decoder(encodedTextBox.Text);
             }
@@ -38,7 +37,7 @@ namespace Base64Decoder
             {
                 results = Decoder(Decoder(encodedTextBox.Text));
             }
-            
+
 
             decodedTextBox.Text = results;
         }
@@ -59,21 +58,26 @@ namespace Base64Decoder
             string results = "";
             if (sender == encodeButton)
             {
-               results = Encoder(decodedTextBox.Text);
+                results = Encoder(decodedTextBox.Text);
 
-            } else if (sender == encodeButtonX2)
+            }
+            else if (sender == encodeButtonX2)
             {
-               string temp = (Encoder(decodedTextBox.Text));
-               results = Encoder(temp);
+                string temp = (Encoder(decodedTextBox.Text));
+                results = Encoder(temp);
             }
 
             encodedTextBox.Text = results.ToString();
-           
+
         }
 
         private void OpenWebPage_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(decodedTextBox.Text); // opens a web page, value must be a hyperlink. 
+            try
+            {
+                Process.Start(decodedTextBox.Text); // opens a web page, value must be a hyperlink. 
+            }
+            catch { }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -86,7 +90,7 @@ namespace Base64Decoder
         }
 
 
-        private string Encoder (string str)
+        private string Encoder(string str)
         {
             if (encodedTextBox.Text != null)
             {
@@ -105,7 +109,7 @@ namespace Base64Decoder
             return "";
         }
 
-        private string Decoder (string str)
+        private string Decoder(string str)
         {
             if (decodedTextBox.Text != null)
             {
